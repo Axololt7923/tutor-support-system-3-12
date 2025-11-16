@@ -1,5 +1,10 @@
 import { Router } from "express";
-// import {register,...} from "../controllers/auth.controller.js";
+import {
+  login,
+  changePassword,
+  resetPassword,
+  resetPasswordToken,
+} from "../controllers/auth.controller.js";
 
 export const router = Router();
 
@@ -9,3 +14,8 @@ export const router = Router();
 // router post /forgot-password
 // Example:
 // router.post("/register", <middleware> ,register);
+router.post("/login", login);
+
+router.post("/reset-password", resetPassword);
+
+router.post("/reset-password/:token", resetPasswordToken);
