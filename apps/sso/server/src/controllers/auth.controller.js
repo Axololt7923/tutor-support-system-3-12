@@ -2,26 +2,17 @@ import { asyncHandler } from "@shared/utils/asyncHandler";
 import { authService } from "../services/auth.service.js";
 import { AppError } from "@shared/utils/AppError";
 
-const SESSION_COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
-  maxAge: 24 * 60 * 60 * 1000, // 24g
-  path: '/',
-};
-
 export const login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
-
-  if (!username || !password) {
-    throw new AppError('Please provide both username and password', 400);
-  }
-
-  const { user } = await authService.login({ 
-    username, 
-    password,
-    req
-  });
+  const { user } = await authService.login({ username, password });
+  
+  req.session.user = {
+    id: user._id.toString(),
+    username: user.username,
+    role: user.role
+  };
+  
+  await req.session.save();
 
   res.status(200).json({success: true, data: {user}});
 });
@@ -35,8 +26,7 @@ export const resetPassword = asyncHandler(async (req, res) => {
 });
 
 export const logout = asyncHandler(async (req, res) => {
-  await authService.logout(req);
-  
+  await req.session.destroy();
   res.clearCookie('connect.sid', { 
     path: '/',
     httpOnly: true,

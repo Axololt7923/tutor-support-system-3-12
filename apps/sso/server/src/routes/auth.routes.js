@@ -1,10 +1,11 @@
 import { Router } from "express";
-import {login, logout} from "../controllers/auth.controller.js";
+import { login, logout } from "../controllers/auth.controller.js";
+import { validateLogin } from "../middlewares/validate.middleware.js";
 
 export const router = Router();
 
 // DEFINE ROUTES HERE
-router.post("/login", login);
+router.post("/login", validateLogin, login);
 router.post("/logout", logout);
 // router post /change-password
 // router post /forgot-password
