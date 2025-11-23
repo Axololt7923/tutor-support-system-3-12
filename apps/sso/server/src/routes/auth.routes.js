@@ -1,4 +1,10 @@
 import { Router } from "express";
+import {
+  login,
+  changePassword,
+  resetPassword,
+  resetPasswordToken,
+} from "../controllers/auth.controller.js";
 import { login, logout } from "../controllers/auth.controller.js";
 import { validateLogin } from "../middlewares/validate.middleware.js";
 
@@ -11,4 +17,3 @@ router.post("/logout", logout);
 // router post /forgot-password
 // Example:
 // router.post("/register", <middleware> ,register);
-

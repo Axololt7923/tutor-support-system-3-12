@@ -41,6 +41,22 @@ export const authService = {
   async changePassword({ username, currentPassword, newPassword }) {
     // Implementation for password change
   },
+  async findUser({ username, mail }) {
+    const user = await User.findOne({ username: username, mail: mail });
+    return user;
+  },
+  async resetPassword({ username, newpassword }) {
+    console.log(newpassword);
+    const user = await User.findOne({ username: username });
+    if (user) {
+      user.password = newpassword;
+      user.save();
+    }
+    return user;
+  },
+  async logout({ userId }) {
+    // YOUR CODE HERE
+  },
   
   async resetPassword({ email }) {
     // Implementation for password reset
