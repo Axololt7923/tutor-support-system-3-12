@@ -4,7 +4,8 @@ import { tokenService } from "../services/token.service.js";
 import { env } from "../config/env.js";
 
 export const login = asyncHandler(async (req, res) => {
-  const { username, password, redirect } = req.body;
+  const { username, password } = req.body;
+  const {redirect} = req.query;
   const { user } = await authService.login({ username, password });
 
   req.session.user = {
@@ -18,7 +19,7 @@ export const login = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     data: { user },
-    redirect: redirect || "/home",
+    redirect: redirect,
   });
 });
 
