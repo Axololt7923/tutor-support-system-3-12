@@ -25,7 +25,7 @@ export const login = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     data: { user },
-    redirect: redirect
+    redirect: redirect,
   });
 });
 
