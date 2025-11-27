@@ -13,9 +13,10 @@ import { MailService } from "@shared/notifications/service";
 // BE: resetPw: token in param, check token in redis, change pw, delete token, return 200
 
 export const login = asyncHandler(async (req, res) => {
-  // --redirect in query
-  const { username, password, redirect } = req.body;
-  const { user } = await authService.login({ username, password });
+  const { username, password } = req.body;
+  const {redirect} = req.query;
+  
+  const {user} = await authService.login({ username, password });
 
   req.session.user = {
     id: user._id.toString(),
@@ -23,11 +24,8 @@ export const login = asyncHandler(async (req, res) => {
     role: user.role,
   };
 
-  await req.session.save(); // --no save
-
   res.status(200).json({
     success: true,
-    data: { user }, // --no return user data
     redirect: redirect,
   });
 });

@@ -6,11 +6,16 @@ export const authService = {
   async login({ username, password }) {
     const user = await User.findOne({ username });
 
-    if (!user || !user.isActive) {
-      throw new AppError("Invalid credentials", 401);
-    }
+    if (!user) {throw new AppError("Invalid credentials", 401);}
 
     const isPasswordValid = await user.comparePassword(password);
+
+    if (!user.isActive && isPasswordValid){
+      user.isActive = true;
+      user.failedLoginCount = 0;
+      await user.save();
+    }
+
     if (!isPasswordValid) {
       user.failedLoginCount += 1;
       if (user.failedLoginCount >= 3) {
@@ -25,6 +30,7 @@ export const authService = {
 
     if (user.failedLoginCount > 0) {
       user.failedLoginCount = 0;
+      user.isActive = true;
       await user.save();
     }
 
@@ -32,7 +38,7 @@ export const authService = {
     delete userData.password;
     delete userData.failedLoginCount;
 
-    return { user: userData };
+    return { user: userData };    
   },
 
   async changePassword({ username, currentpassword, newpassword }) {
