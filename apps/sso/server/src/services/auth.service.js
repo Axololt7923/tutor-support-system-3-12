@@ -9,16 +9,15 @@ export const AuthService = {
       throw new AppError("Wrong password or username", 401);
     }
 
-    const isPasswordValid = await user.comparePassword(password);
+    const isPasswordValid = user.comparePassword(password);
 
-    if (isPasswordValid) {
+    if (isPasswordValid && user.failedLoginCount > 0) {
       user.failedLoginCount = 0;
       await user.save();
-    } else {
+    } else if (!isPasswordValid) {
       user.failedLoginCount += 1;
-      if (user.failedLoginCount >= 3) {
-        user.isActive = false;
-      }
+      if (user.failedLoginCount >= 3) user.isActive = false;
+
       await user.save();
       throw new AppError("Wrong password or username", 401);
     }

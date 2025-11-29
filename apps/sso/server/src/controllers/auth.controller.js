@@ -45,7 +45,7 @@ export const sendToken = asyncHandler(async (req, res) => {
   // This url will be sent to user's mail attached with generated Token
   const resetLink = `${env.CORS_ORIGIN}/reset-password?token=${token}`;
   // Send mail to user
-  await MailService.sendToken(mail, { resetLink });
+  await MailService.sendToken(mail, { username, resetLink });
 
   return res.status(200).json({ message: "Token has been sent to your email" });
 });
