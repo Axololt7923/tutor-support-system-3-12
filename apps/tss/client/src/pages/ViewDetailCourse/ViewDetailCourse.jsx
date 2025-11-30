@@ -2,12 +2,12 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useState } from "react";
 import mockCourse from "./course.json";
-import CourseBanner from "../../components/ViewDetailSession/SessionBanner";
-import TutorInfo from "../../components/ViewDetailSession/TutorInfo";
-import CourseMeta from "../../components/ViewDetailSession/SessionMeta";
-import CourseObjectives from "../../components/ViewDetailSession/SessionObjectives";
-import ActionsPanel from "../../components/ViewDetailSession/ActionsPanel";
-import UpcomingSession from "../../components/ViewDetailSession/UpcomingSession";
+import CourseBanner from "../../components/ViewDetailCourse/CourseBanner";
+import TutorInfo from "../../components/ViewDetailCourse/TutorInfo";
+import CourseMeta from "../../components/ViewDetailCourse/CourseMeta";
+import CourseObjectives from "../../components/ViewDetailCourse/CourseObjectives";
+import ActionsPanel from "../../components/ViewDetailCourse/ActionsPanel";
+import UpcomingSession from "../../components/ViewDetailCourse/UpcomingSession";
 import Back from "../../components/Back";
 export default function ViewCourseDetail() {
   const [course] = useState(mockCourse);
