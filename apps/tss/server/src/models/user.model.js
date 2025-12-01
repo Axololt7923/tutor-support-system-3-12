@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
     avatar: {
       publicId: {
         type: String,
+        default: "avtdf_kvmacl",
       },
     },
   },

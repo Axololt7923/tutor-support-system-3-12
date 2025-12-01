@@ -18,4 +18,7 @@ export const env = {
   NATS_STREAM: process.env.NATS_STREAM,
   EMAIL_USER: process.env.EMAIL_USER,
   EMAIL_PASS: process.env.EMAIL_PASS,
+  CLOUD_NAME: process.env.CLOUD_NAME,
+  CLOUD_API_KEY: process.env.CLOUD_API_KEY,
+  CLOUD_API_SECRET: process.env.CLOUD_API_SECRET,
 };
