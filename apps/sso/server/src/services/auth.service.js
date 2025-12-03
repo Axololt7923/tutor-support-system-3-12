@@ -9,7 +9,7 @@ export const AuthService = {
       throw new AppError("Wrong password or username", 401);
     }
 
-    const isPasswordValid = user.comparePassword(password);
+    const isPasswordValid = await user.comparePassword(password);
 
     if (isPasswordValid && user.failedLoginCount > 0) {
       user.failedLoginCount = 0;
@@ -22,7 +22,7 @@ export const AuthService = {
       throw new AppError("Wrong password or username", 401);
     }
 
-    return { id: user._id, role: user.role };
+    return { id: user.userId, role: user.role };
   },
 
   async changePassword({ username, currentPassword, newPassword }) {

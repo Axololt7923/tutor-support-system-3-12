@@ -61,6 +61,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "redis": "^5.9.0",
+    "streamifier": "^0.1.1",
     "vite": "^7.1.12"
   },
   "devDependencies": {

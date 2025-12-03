@@ -5,8 +5,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-// import routes from "./routes/index.js";
-// import testRoute from "./routes/test.routes.js";
+import routes from "./routes/index.js";
+import testRoute from "./routes/test.routes.js";
 import { env } from "./config/env.js";
 // eslint-disable-next-line import/no-unresolved
 import { errorHandler } from "@shared/middlewares/error";
@@ -29,8 +29,8 @@ export const createApp = () => {
 
   app.use(sessionMiddleware("sso")); // Session management
   // Routes
-  //   app.use("/api", routes);
-  //   app.use("/test", testRoute);
+  app.use("/api", routes);
+  app.use("/test", testRoute);
   // 404 handler
   app.use((_req, _res, next) => next(new AppError("Not Found", 404)));
   // Error handler
