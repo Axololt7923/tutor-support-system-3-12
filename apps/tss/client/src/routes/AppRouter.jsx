@@ -20,6 +20,8 @@ import Progress from "../pages/ProgressPage";
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
 import MySched from "../pages/SchedulePage/Mysched.jsx";
 import CreateSession from "../pages/Session/CreateSession";
+import ProgressPage from "../pages/ProgressPage";
+
 export default function AppRouter() {
   const location = useLocation();
 
@@ -44,7 +46,7 @@ export default function AppRouter() {
       "/feedback/detail": "Feedback Detail | Tutor Support System",
       "/feedbacks": "Feedback List | Tutor Support System",
       "/send": "Send Feedback | Tutor Support System",
-      "/create-session": "Create Session | Tutor Support System",
+      "/create-session": "Create Session | Tutor Support System"
     };
 
     document.title = pathTitleMap[location.pathname] || "Tutor Support System";
@@ -76,7 +78,7 @@ export default function AppRouter() {
       <Route path="/feedbacks" element={<ViewFeedback />} />
       <Route path="/send" element={<SendFeedback />} />
       <Route path="/my-schedule" element={<MySched />} />
-
+      <Route path="/progress/:id" element={<ProgressPage />} />
       {/* 404 fallback */}
       {/*<Route path="*" element={<LoginPage />} />*/}
     </Routes>

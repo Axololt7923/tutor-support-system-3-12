@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import FullCalendarBasic from "../../components/SchedulePage/FullCalendarBasic";
+import { getCurrentRole, getCurrentUser } from "../../utils/auth.js";
 
 // --- MOCK DATA THEO ROLE ---
 // Có thể tách ra file riêng nếu bạn muốn.
@@ -173,7 +174,7 @@ const tutorEvents = [
 ];
 
 export default function Mysched() {
-  const [role, setRole] = useState("student"); // "student" | "tutor"
+  const role = getCurrentRole() || "student";
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   const events = role === "student" ? studentEvents : tutorEvents;
@@ -204,20 +205,6 @@ export default function Mysched() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <h2 className="text-xl font-bold text-[#030391]">My Schedule</h2>
 
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-700">View as:</span>
-              <select
-                value={role}
-                onChange={(e) => {
-                  setRole(e.target.value);
-                  setSelectedEvent(null); // clear event khi đổi role
-                }}
-                className="border border-gray-300 rounded-md px-3 py-1 text-sm bg-white"
-              >
-                <option value="student">Student</option>
-                <option value="tutor">Tutor</option>
-              </select>
-            </div>
           </div>
 
           {/* Calendar */}

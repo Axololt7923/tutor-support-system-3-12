@@ -20,6 +20,11 @@ export default function Pagin({ sessions }) {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  function checkPermissions() {
+    const canCreateReport = Math.random() < 0.2;
+    return canCreateReport;
+  }
+
   const getPageNumbers = () => {
     const pageNumbers = [];
 
@@ -76,7 +81,7 @@ export default function Pagin({ sessions }) {
       {/* GRID – SESSION CARDS */}
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
         {currentSessions.map((item, idx) => {
-          const canCreateReport = Math.random() < 0.35;
+          const canCreateReport = checkPermissions();
 
           return (
             <div
@@ -94,25 +99,41 @@ export default function Pagin({ sessions }) {
 
                 <p className="text-gray-600 text-sm mt-2">{item.locationType || item.mode}</p>
 
-                <div className="flex items-center mt-5 gap-3">
+                <div className="flex items-center mt-5 mb-5 gap-3">
                   {/* View Detail */}
                   <button
-                    onClick={() => navigate("/session")}
+                    onClick={() => navigate("/Course/"+item.id)}
                     className="text-[#142b63] text-sm font-semibold border border-[#142b63] px-4 py-1.5 rounded-full hover:bg-[#142b63] hover:text-white transition-all"
                   >
                     View Detail
                   </button>
 
-                  {/* TUTOR ONLY */}
-                  {role === "tutor" && canCreateReport && (
+                  {role !== "tutor" && (
                     <button
-                      onClick={() => navigate("/progress")}
+                      onClick={() => navigate("/send")}
                       className="bg-[#1a237e] text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-[#0f1f4c] transition-all"
                     >
-                      Create Report
+                      Send Feedback
+                    </button>
+                  )}
+                  {/* TUTOR ONLY */}
+                  {role === "tutor" && (
+                    <button
+                      onClick={() => navigate("/feedbacks")}
+                      className="bg-[#1a237e] text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-[#0f1f4c] transition-all"
+                    >
+                      View Feedbacks
                     </button>
                   )}
                 </div>
+                {role === "tutor" && canCreateReport && (
+                  <button
+                    onClick={() => navigate("/progress")}
+                    className="bg-[#1a237e] max-w-[500px] w-full text-white text-sm font-semibold px-4 py-1.5 rounded-full hover:bg-[#0f1f4c] transition-all"
+                  >
+                    Create Report
+                  </button>
+                )}
               </div>
             </div>
           );

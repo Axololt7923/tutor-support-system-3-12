@@ -21,17 +21,15 @@ export default function AllCoursesPages() {
     setRole(currentRole);
 
     if (currentRole === "tutor") {
-      // ✅ Tutor chỉ thấy khóa học của mình
       setSessions(mockCoursesTutor(user?.name || "John Doe"));
     } else {
-      // ✅ Student thấy tất cả tutor
       setSessions(mockCoursesStudent);
     }
   }, []);
 
-  const handleCreateReport = () => {
-    navigate("/progress");
-  };
+  // const handleCreateReport = () => {
+  //   navigate("/progress");
+  // };
 
   return (
     <>
